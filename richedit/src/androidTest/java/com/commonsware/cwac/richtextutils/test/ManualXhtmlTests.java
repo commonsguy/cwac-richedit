@@ -63,4 +63,22 @@ public class ManualXhtmlTests extends TestCase {
 
     assertEquals(input, roundTrip);
   }
+
+  public void testPartialDoubleSpanAtBeginning() throws Exception {
+    final String input = "<b><i>The quick brown fox</i> jumped over the lazy dog.</b>";
+
+    Spanned fromInput=new SpannableStringGenerator().fromXhtml(input);
+    String roundTrip=new SpannedXhtmlGenerator().toXhtml(fromInput);
+
+    assertEquals(input, roundTrip);
+  }
+
+  public void testPartialDoubleSpanAtEnding() throws Exception {
+    final String input = "<b>The quick brown fox jumped over <i>the lazy dog.</i></b>";
+
+    Spanned fromInput=new SpannableStringGenerator().fromXhtml(input);
+    String roundTrip=new SpannedXhtmlGenerator().toXhtml(fromInput);
+
+    assertEquals(input, roundTrip);
+  }
 }
