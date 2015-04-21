@@ -15,17 +15,20 @@
 package com.commonsware.cwac.richtextutils.test;
 
 import android.text.Spanned;
-import android.text.SpannedString;
-import android.text.style.CharacterStyle;
 import android.text.style.StrikethroughSpan;
+
 import com.commonsware.cwac.richtextutils.SpanTagRoster;
 import com.commonsware.cwac.richtextutils.SpannableStringGenerator;
 import com.commonsware.cwac.richtextutils.SpannedXhtmlGenerator;
 import com.commonsware.cwac.richtextutils.handler.ClassSpanTagHandler;
+
 import junit.framework.TestCase;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+
 import java.io.IOException;
+
 import javax.xml.parsers.ParserConfigurationException;
 
 public class ManualXhtmlTests extends TestCase {
@@ -81,4 +84,24 @@ public class ManualXhtmlTests extends TestCase {
 
     assertEquals(input, roundTrip);
   }
+
+  public void testBulletsWithTagsInside() throws Exception {
+    final String input = "The<ul><li>qu<b>i</b>ck</li><li>brown</li></ul> fox jumped over the lazy dog.";
+
+    Spanned fromInput=new SpannableStringGenerator().fromXhtml(input);
+    String roundTrip=new SpannedXhtmlGenerator().toXhtml(fromInput);
+
+    assertEquals(input, roundTrip);
+
+  }
+
+  public void testOrderedList() throws Exception {
+    String input = "<ol><li>one</li><li>two</li><li>three</li></ol>";
+
+    Spanned fromInput=new SpannableStringGenerator().fromXhtml(input);
+    String roundTrip=new SpannedXhtmlGenerator().toXhtml(fromInput);
+
+    assertEquals(input, roundTrip);
+  }
+
 }

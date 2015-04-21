@@ -47,7 +47,9 @@ class XhtmlSaxHandler extends DefaultHandler {
                            String name, Attributes a) {
     String style=a.getValue("style");
 
-    if ("ul".equals(name)) {
+    if ("ul".equals(name) || "ol".equals(name)) {
+
+      textStack.push(new Item(new ListTypeSpan(name,a), ""));
       isInBulletedList=true;
 
       Item item=textStack.peek();
@@ -61,14 +63,10 @@ class XhtmlSaxHandler extends DefaultHandler {
       }
     }
     else if ("li".equals(name)) {
-      if (isInBulletedList) {
         textStack.push(new Item(new BulletSpan(), ""));
-      }
-      else {
-        throw new IllegalStateException("Found <li> without enclosing <ul>");
-      }
     }
-    else if ("div".equals(name) && style!=null) {
+    else
+    if ("div".equals(name) && style!=null) {
       handleAlignment(style);
     }
     else if (Arrays.binarySearch(NO_ITEM_TAGS, name)<=0) {
@@ -84,11 +82,7 @@ class XhtmlSaxHandler extends DefaultHandler {
     }
     else if ("br".equals(name)) {
       textStack.peek().append("\n");
-    }
-    else if ("ul".equals(name)) {
-      isInBulletedList=false;
-    }
-    else {
+    } else {
       if ("li".equals(name)) {
         textStack.peek().append("\n");
       }
@@ -149,7 +143,7 @@ class XhtmlSaxHandler extends DefaultHandler {
 
       content.append(item.content);
       content.setSpan(item.activeSpan, start, content.length(),
-          Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+          Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
     Spannable getContent() {

@@ -106,49 +106,44 @@ public class SpannedXhtmlGenerator {
     }
     else {
       int lastSpanEnd=-1;
-      boolean inBulletRun=false;
+      int firstSpanStart = src.getSpanStart(spans[0]);
+      if (firstSpanStart != 0){
+          result.append(blockToXhtml((Spanned) src.subSequence(0, firstSpanStart), null));
+      }
+
+      ListTypeSpan activeList = null;
 
       for (BulletSpan span : spans) {
         int spanStart=src.getSpanStart(span);
         int spanEnd=src.getSpanEnd(span);
 
-        if (spanStart > lastSpanEnd) {
-          if (inBulletRun) {
-            result.append("</ul>");
-            inBulletRun=false;
-          }
 
-          if (spanStart > 0) {
-            int subsequenceStart=(lastSpanEnd < 0 ? 0 : lastSpanEnd);
-            int subsequenceEnd=spanStart;
+        ListTypeSpan[] currentList = src.getSpans(spanStart, spanEnd, ListTypeSpan.class);
+        if (currentList.length != 0 && !currentList[0].equals(activeList)){
+            if (activeList != null)
+                result.append("</"+activeList.getTag()+">");
 
-            if (src.charAt(spanStart)=='\n' && !inBulletRun) {
-              subsequenceEnd--; // to remove leading newline
+            if (spanStart > lastSpanEnd && lastSpanEnd != -1){
+                result.append(blockToXhtml((Spanned) src.subSequence(lastSpanEnd, spanStart), null));
             }
 
-            result.append(src.subSequence(subsequenceStart, subsequenceEnd));
-          }
-
-          result.append("<ul");
-          result.append(buildAlignStyle(align));
-          result.append('>');
-          inBulletRun=true;
+            activeList = currentList[0];
+            result.append("<"+activeList.getTag()+activeList.getAttributes()+">");
         }
 
+
         result.append("<li>");
-        result.append(src.subSequence(spanStart, spanEnd - 1));
+        result.append(blockToXhtml((Spanned) src.subSequence(spanStart, spanEnd - 1), null));
         // -1 to remove trailing newline
         result.append("</li>");
 
         lastSpanEnd=spanEnd;
       }
-
-      if (inBulletRun) {
-        result.append("</ul>");
-      }
+      if (activeList != null)
+        result.append("</"+activeList.getTag()+">");
 
       if (lastSpanEnd < src.length()) {
-        result.append(src.subSequence(lastSpanEnd, src.length()));
+        result.append(blockToXhtml((Spanned) src.subSequence(lastSpanEnd, src.length()), null));
       }
     }
   }
