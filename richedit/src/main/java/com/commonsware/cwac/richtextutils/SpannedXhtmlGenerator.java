@@ -116,14 +116,8 @@ public class SpannedXhtmlGenerator {
           }
 
           if (spanStart > 0) {
-            int subsequenceStart=(lastSpanEnd < 0 ? 0 : lastSpanEnd);
-            int subsequenceEnd=spanStart;
-
-            if (src.charAt(spanStart)=='\n' && !inBulletRun) {
-              subsequenceEnd--; // to remove leading newline
-            }
-
-            result.append(src.subSequence(subsequenceStart, subsequenceEnd));
+            Spanned spanned = (Spanned) src.subSequence(lastSpanEnd < 0 ? 0 : lastSpanEnd, spanStart);
+            result.append(blockToXhtml(spanned, null));
           }
 
           result.append("<ul");
