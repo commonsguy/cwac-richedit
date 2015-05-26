@@ -96,7 +96,7 @@ public class SpannedXhtmlGenerator {
     return(result.toString());
   }
 
-  private void chunkToXhtml(SpannableStringBuilder result, Spanned src,
+  private void chunkToXhtml(SpannableStringBuilder result, final Spanned src,
                               Layout.Alignment align) {
     BulletSpan[] spans=src.getSpans(0, src.length(), BulletSpan.class);
 
@@ -109,12 +109,10 @@ public class SpannedXhtmlGenerator {
 
       for (BulletSpan span : spans) {
         int spanStart=src.getSpanStart(span);
-        int spanEnd=src.getSpanEnd(span);
 
         if (spanStart > lastSpanEnd) {
           if (inBulletRun) {
             result.append("</ul>");
-            inBulletRun=false;
           }
 
           if (spanStart > 0) {
@@ -136,13 +134,16 @@ public class SpannedXhtmlGenerator {
 
         result.append("<li>");
 
-        Spanned sub=(Spanned)src.subSequence(spanStart, spanEnd - 1);
-                                    // -1 to remove trailing newline
+        int spanEnd=spanStart;
+        while (spanEnd < src.length() && src.charAt(spanEnd) != '\n')
+          spanEnd++;
+
+        Spanned sub=(Spanned)src.subSequence(spanStart, spanEnd);
 
         result.append(blockToXhtml(sub, null));
         result.append("</li>");
 
-        lastSpanEnd=spanEnd;
+        lastSpanEnd=spanEnd + 1;
       }
 
       if (inBulletRun) {
