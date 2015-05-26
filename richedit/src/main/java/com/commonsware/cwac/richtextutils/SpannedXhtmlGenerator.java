@@ -266,11 +266,18 @@ public class SpannedXhtmlGenerator {
 
     result=new StringBuilder();
 
-    if (baseResult.endsWith("</div><div>")) {
+    if (baseResult.endsWith("</div><div><br/>")) {
       result.append("<div");
       result.append(buildAlignStyle(align));
       result.append('>');
-      result.append(baseResult.substring(0, baseResult.length()-5));
+      result.append(baseResult, 0, baseResult.length() - 10);
+      result.append("<br/>");
+    }
+    else if (baseResult.endsWith("</div><div>")) {
+      result.append("<div");
+      result.append(buildAlignStyle(align));
+      result.append('>');
+      result.append(baseResult, 0, baseResult.length() - 5);
     }
     else if (baseResult.contains("</div><div>") || align!=null) {
       result.append("<div");
