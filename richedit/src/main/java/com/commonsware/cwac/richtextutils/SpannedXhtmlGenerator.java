@@ -99,6 +99,14 @@ public class SpannedXhtmlGenerator {
   private void chunkToXhtml(SpannableStringBuilder result, final Spanned src,
                               Layout.Alignment align) {
     BulletSpan[] spans=src.getSpans(0, src.length(), BulletSpan.class);
+    Arrays.sort(spans, new Comparator<BulletSpan>() {
+      @Override
+      public int compare(BulletSpan lhs, BulletSpan rhs) {
+        int a = src.getSpanStart(lhs);
+        int b = src.getSpanStart(rhs);
+        return a < b ? -1 : a == b ? 0 : 1;
+      }
+    });
 
     if (spans.length==0) {
       result.append(blockToXhtml(src, align));
