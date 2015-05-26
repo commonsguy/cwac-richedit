@@ -83,6 +83,7 @@ class XhtmlSaxHandler extends DefaultHandler {
       textStack.peek().append("\n\n");
     }
     else if ("br".equals(name)) {
+      textStack.pop();
       textStack.peek().append("\n");
     }
     else if ("ul".equals(name)) {
