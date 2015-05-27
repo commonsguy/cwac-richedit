@@ -15,4 +15,6 @@ dependencies {
     debugCompile project(':richedit')
     releaseCompile 'com.commonsware.cwac:richedit:0.5.+'
     compile 'com.commonsware.cwac:colormixer:0.6.+'
+    compile 'com.android.support:support-v4:22.0.0'
+    compile 'com.android.support:appcompat-v7:22.0.0'
 }

@@ -1,7 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.commonsware.cwac.richedit.RichEditText xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/editor"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:gravity="left|top"
-	android:imeOptions="flagNoExtractUi"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+
+	<android.support.v7.widget.Toolbar
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:id="@+id/toolbar"
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:minHeight="?attr/actionBarSize"
+		android:background="?attr/colorPrimary" />
+	<com.commonsware.cwac.richedit.RichEditText
+		android:id="@+id/editor"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="top"
+		android:padding="8dp"
+		android:background="@android:color/transparent"
+		android:imeOptions="flagNoExtractUi"/>
+
+	<EditText
+		android:id="@+id/viewer"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="top"
+		android:padding="8dp"
+		android:background="@android:color/transparent"
+		android:imeOptions="flagNoExtractUi"
+		android:visibility="gone"/>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		<Button style="@style/RichTextAction"
+			android:id="@+id/viewxml" android:text="xml"/>
+		<!--<Button style="@style/RichTextAction"-->
+			<!--android:id="@+id/bold" android:text="bold"/>-->
+		<!--<Button style="@style/RichTextAction"-->
+			<!--android:id="@+id/italic" android:text="italic"/>-->
+		<!--<Button style="@style/RichTextAction"-->
+			<!--android:id="@+id/underline" android:text="underline"/>-->
+		<!--<Button style="@style/RichTextAction"-->
+			<!--android:id="@+id/del" android:text="del"/>-->
+		<Button style="@style/RichTextAction"
+			android:id="@+id/bullet" android:text="bullet"/>
+		<Button style="@style/RichTextAction"
+			android:id="@+id/link" android:text="link"/>
+	</LinearLayout>
+
+</LinearLayout>
