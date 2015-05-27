@@ -71,7 +71,7 @@ class XhtmlSaxHandler extends DefaultHandler {
     else if ("div".equals(name) && style!=null) {
       handleAlignment(style);
     }
-    else if (Arrays.binarySearch(NO_ITEM_TAGS, name)<=0) {
+    else if (Arrays.binarySearch(NO_ITEM_TAGS, name)<0) {
       Object span=tagRoster.buildSpanForTag(name, a);
 
       textStack.push(new Item(span, ""));
@@ -83,7 +83,6 @@ class XhtmlSaxHandler extends DefaultHandler {
       textStack.peek().append("\n\n");
     }
     else if ("br".equals(name)) {
-      textStack.pop();
       textStack.peek().append("\n");
     }
     else if ("ul".equals(name)) {
