@@ -43,7 +43,7 @@ public class ManualXhtmlTests extends TestCase {
   }
 
     public void testBr() throws Exception {
-        final String input="a<br/>b";
+        final String input="a<br/>b<br/>c";
         SpanTagRoster tagRoster=new SpanTagRoster();
         Spanned fromInput=new SpannableStringGenerator(tagRoster).fromXhtml(input);
         String roundTrip=new SpannedXhtmlGenerator(tagRoster).toXhtml(fromInput);
