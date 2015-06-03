@@ -40,7 +40,12 @@ abstract public class EffectTestsBase<T> {
 
   @Before
   public void init() {
-    richedit=new RichEditText(InstrumentationRegistry.getInstrumentation().getTargetContext());
+    InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+      @Override
+      public void run() {
+        richedit=new RichEditText(InstrumentationRegistry.getInstrumentation().getTargetContext());
+      }
+    });
   }
 
   protected Spanned buildSpanned(String msg) throws IOException, SAXException, ParserConfigurationException {

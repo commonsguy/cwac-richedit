@@ -133,8 +133,11 @@ public class SpannedXhtmlGenerator {
 
 
         result.append("<li>");
-        result.append(blockToXhtml((Spanned) src.subSequence(spanStart, spanEnd - 1), null));
-        // -1 to remove trailing newline
+
+        Spanned sub=(Spanned)src.subSequence(spanStart, spanEnd - 1);
+                                    // -1 to remove trailing newline
+
+        result.append(blockToXhtml(sub, null));
         result.append("</li>");
 
         lastSpanEnd=spanEnd;
@@ -143,7 +146,9 @@ public class SpannedXhtmlGenerator {
         result.append("</"+activeList.getTag()+">");
 
       if (lastSpanEnd < src.length()) {
-        result.append(blockToXhtml((Spanned) src.subSequence(lastSpanEnd, src.length()), null));
+        Spanned sub=(Spanned)src.subSequence(lastSpanEnd, src.length());
+
+        result.append(blockToXhtml(sub, null));
       }
     }
   }
@@ -192,6 +197,8 @@ public class SpannedXhtmlGenerator {
       CharacterStyle[] spansInEffect=src.getSpans(i, nextSpanEnd,
                                                   CharacterStyle.class);
       spansInEffect = sortSpansByEndings(spansInEffect, src);
+
+      Arrays.sort(spansInEffect, new EndSpanComparator(src));
 
       while (!activeSpans.empty()) {
         boolean stillInEffect=false;
@@ -301,5 +308,18 @@ public class SpannedXhtmlGenerator {
     }
 
     return((Spanned)sub);
+  }
+
+  private static class EndSpanComparator implements Comparator<Object> {
+    final private Spanned src;
+
+    EndSpanComparator(Spanned src) {
+      this.src=src;
+    }
+
+    @Override
+    public int compare(Object lhs, Object rhs) {
+      return(src.getSpanEnd(rhs)-src.getSpanEnd(lhs));
+    }
   }
 }

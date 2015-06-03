@@ -35,5 +35,5 @@ dependencies {
     compile 'com.android.support:support-v13:21.0.3'
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     debugCompile project(':richedit')
-    releaseCompile 'com.commonsware.cwac:richedit:0.4.+'
+    releaseCompile 'com.commonsware.cwac:richedit:0.5.+'
 }

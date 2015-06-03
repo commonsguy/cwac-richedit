@@ -230,7 +230,9 @@ instances, are applied to convert the `Spanned` to XHTML and back again:
 | --------------------- | --------------------------------------- |
 | `AbsoluteSizeSpan`    | `<span style="font-size:...px;">`      |
 | `BackgroundColorSpan` | `<span style="background-color:#...">` |
+| `BulletSpan`          | `<li>` inside of a `<ul>` |
 | `ForegroundColorSpan` | `<font color="...">`                    |
+| `LineAlignmentSpan`   | `<div style="text-align:...">` or `<ul style="text-align:...">` |
 | `RelativeSizeSpan`    | `<span style="font-size:...%;">`       |
 | `StrikethroughSpan`   | `<strike>`                              |
 | `StyleSpan`           | `<b>` or `<i>`                          |
@@ -299,7 +301,7 @@ that do not work on API Level 11 and are not noted as requiring a higher version
 
 Version
 -------
-This is version v0.5.0 of this module, meaning it is creeping towards
+This is version v0.5.1 of this module, meaning it is creeping towards
 respectability.
 
 Demo
@@ -341,6 +343,7 @@ the fence may work, but it may not.
 
 Release Notes
 -------------
+- v0.5.1: fixed [issue 15](https://github.com/commonsguy/cwac-richedit/issues/15) and [issue 17](https://github.com/commonsguy/cwac-richedit/issues/17)
 - v0.5.0: added preliminary support for bullets, added XHTML conversion classes
 - v0.4.0: added support for size, color, and URL effects
 - v0.3.1: updated for Android Studio 1.0 and new AAR publishing system
