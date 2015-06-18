@@ -185,13 +185,13 @@ configuration change, since the chosen color will not be applied anyway.
 
 Usage: XHTML Conversion
 ----------------
-The principal set of utilities for this library is to convert
+This library also contains classes to convert
 `Spanned` objects to/from XHTML.
 
 ### Scope of Support
 
 The primary objective of this conversion logic is to support the
-formatting offered by [the `RichEditText` widget](https://github.com/commonsguy/cwac-richedit).
+formatting offered by the `RichEditText` widget.
 Apps that wish to allow users to enter in rich text can use
 `RichEditText`, then persist the `Spanned` using this library. Later
 on, if the user wants to edit rich text entered previously, the app
