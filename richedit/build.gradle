@@ -27,7 +27,7 @@ repositories {
 }
 
 dependencies {
-    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
+    androidTestCompile 'com.android.support.test:rules:0.3'
 }
 
 if (project.hasProperty('PUBLISH_GROUP_ID')) {
