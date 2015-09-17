@@ -43,25 +43,11 @@ public class StyleEffect extends Effect<Boolean> {
       StyleSpan[] spansBefore=
           str.getSpans(selection.getStart() - 1, selection.getEnd(),
                        StyleSpan.class);
-      StyleSpan[] spansAfter=
-          str.getSpans(selection.getStart(), selection.getEnd() + 1,
-                       StyleSpan.class);
 
       for (StyleSpan span : spansBefore) {
         if (span.getStyle() == style) {
           result=true;
           break;
-        }
-      }
-
-      if (result) {
-        result=false;
-
-        for (StyleSpan span : spansAfter) {
-          if (span.getStyle() == style) {
-            result=true;
-            break;
-          }
         }
       }
     }
@@ -103,17 +89,17 @@ public class StyleEffect extends Effect<Boolean> {
 
     if (add) {
       str.setSpan(new StyleSpan(style), selection.getStart(), selection.getEnd(),
-                  Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                  Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
     }
     else {
       if (prologueStart < Integer.MAX_VALUE) {
         str.setSpan(new StyleSpan(style), prologueStart,
-                    selection.getStart(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    selection.getStart(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
       }
 
       if (epilogueEnd > -1) {
         str.setSpan(new StyleSpan(style), selection.getEnd(), epilogueEnd,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
       }
     }
   }

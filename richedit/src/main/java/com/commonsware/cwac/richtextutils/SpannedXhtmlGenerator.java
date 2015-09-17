@@ -22,6 +22,7 @@ import android.text.TextUtils;
 import android.text.style.AlignmentSpan;
 import android.text.style.BulletSpan;
 import android.text.style.CharacterStyle;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Stack;
@@ -105,34 +106,31 @@ public class SpannedXhtmlGenerator {
     }
     else {
       int lastSpanEnd=-1;
-      boolean inBulletRun=false;
+      int firstSpanStart = src.getSpanStart(spans[0]);
+      if (firstSpanStart != 0){
+          result.append(blockToXhtml((Spanned) src.subSequence(0, firstSpanStart), null));
+      }
+
+      ListTypeSpan activeList = null;
 
       for (BulletSpan span : spans) {
         int spanStart=src.getSpanStart(span);
         int spanEnd=src.getSpanEnd(span);
 
-        if (spanStart > lastSpanEnd) {
-          if (inBulletRun) {
-            result.append("</ul>");
-            inBulletRun=false;
-          }
 
-          if (spanStart > 0) {
-            int subsequenceStart=(lastSpanEnd < 0 ? 0 : lastSpanEnd);
-            int subsequenceEnd=spanStart;
+        ListTypeSpan[] currentList = src.getSpans(spanStart, spanEnd, ListTypeSpan.class);
+        if (currentList.length != 0 && !currentList[0].equals(activeList)){
+            if (activeList != null)
+                result.append("</"+activeList.getTag()+">");
 
-            if (src.charAt(spanStart)=='\n' && !inBulletRun) {
-              subsequenceEnd--; // to remove leading newline
+            if (spanStart > lastSpanEnd && lastSpanEnd != -1){
+                result.append(blockToXhtml((Spanned) src.subSequence(lastSpanEnd, spanStart), null));
             }
 
-            result.append(src.subSequence(subsequenceStart, subsequenceEnd));
-          }
-
-          result.append("<ul");
-          result.append(buildAlignStyle(align));
-          result.append('>');
-          inBulletRun=true;
+            activeList = currentList[0];
+            result.append("<"+activeList.getTag()+activeList.getAttributes()+">");
         }
+
 
         result.append("<li>");
 
@@ -144,10 +142,8 @@ public class SpannedXhtmlGenerator {
 
         lastSpanEnd=spanEnd;
       }
-
-      if (inBulletRun) {
-        result.append("</ul>");
-      }
+      if (activeList != null)
+        result.append("</"+activeList.getTag()+">");
 
       if (lastSpanEnd < src.length()) {
         Spanned sub=(Spanned)src.subSequence(lastSpanEnd, src.length());
@@ -200,6 +196,7 @@ public class SpannedXhtmlGenerator {
                                               CharacterStyle.class);
       CharacterStyle[] spansInEffect=src.getSpans(i, nextSpanEnd,
                                                   CharacterStyle.class);
+      spansInEffect = sortSpansByEndings(spansInEffect, src);
 
       Arrays.sort(spansInEffect, new EndSpanComparator(src));
 
@@ -281,6 +278,16 @@ public class SpannedXhtmlGenerator {
     }
 
     return(result.toString());
+  }
+
+  private static CharacterStyle[] sortSpansByEndings(CharacterStyle[] spans, final Spanned src){
+    Arrays.sort(spans, new Comparator<Object>() {
+        @Override
+        public int compare(Object lhs, Object rhs) {
+            return src.getSpanEnd(rhs) - src.getSpanEnd(lhs);
+        }
+    });
+    return spans;
   }
 
   private static boolean hasAny(CharSequence input, String[] sources) {

@@ -39,10 +39,8 @@ public class SimpleBooleanEffect<T> extends Effect<Boolean> {
     else {
       T[] spansBefore=
           str.getSpans(selection.getStart() - 1, selection.getEnd(), clazz);
-      T[] spansAfter=
-          str.getSpans(selection.getStart(), selection.getEnd() + 1, clazz);
 
-      result=(spansBefore.length > 0 && spansAfter.length > 0);
+      result=(spansBefore.length > 0);
     }
 
     return(result);
@@ -82,18 +80,18 @@ public class SimpleBooleanEffect<T> extends Effect<Boolean> {
     try {
       if (add) {
         str.setSpan(clazz.newInstance(), selection.getStart(),
-                    selection.getEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    selection.getEnd(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
       }
       else {
         if (prologueStart < Integer.MAX_VALUE) {
           str.setSpan(clazz.newInstance(), prologueStart,
                       selection.getStart(),
-                      Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                      Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
         }
 
         if (epilogueEnd > -1) {
           str.setSpan(clazz.newInstance(), selection.getEnd(),
-                      epilogueEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                      epilogueEnd, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
         }
       }
     }
