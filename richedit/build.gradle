@@ -20,12 +20,6 @@ android {
     }
 }
 
-repositories {
-    maven {
-        url "https://repo.commonsware.com.s3.amazonaws.com"
-    }
-}
-
 dependencies {
     androidTestCompile 'com.android.support.test:rules:0.3'
 }
