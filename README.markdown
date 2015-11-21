@@ -348,6 +348,7 @@ of guidance here.
 
 Release Notes
 -------------
+- v0.5.2: bug fixes
 - v0.5.1: fixed [issue 15](https://github.com/commonsguy/cwac-richedit/issues/15) and [issue 17](https://github.com/commonsguy/cwac-richedit/issues/17)
 - v0.5.0: added preliminary support for bullets, added XHTML conversion classes
 - v0.4.0: added support for size, color, and URL effects
