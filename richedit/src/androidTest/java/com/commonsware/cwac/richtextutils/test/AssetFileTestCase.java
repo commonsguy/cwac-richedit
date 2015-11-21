@@ -16,6 +16,7 @@ package com.commonsware.cwac.richtextutils.test;
 
 import android.content.res.AssetManager;
 import android.test.AndroidTestCase;
+import android.text.Html;
 import android.text.Spanned;
 import com.commonsware.cwac.richtextutils.SpanTagRoster;
 import com.commonsware.cwac.richtextutils.SpannableStringGenerator;
@@ -30,12 +31,18 @@ public class AssetFileTestCase extends AndroidTestCase {
     SpanTagRoster tagRoster=new SpanTagRoster();
 
     for (String testFile : tests) {
-      String input = new Scanner(assets.open("testFiles/"+testFile)).useDelimiter("\\Z").next();
-      Spanned fromInput=new SpannableStringGenerator(tagRoster).fromXhtml(input);
-      String firstRoundTrip=new SpannedXhtmlGenerator(tagRoster).toXhtml(fromInput);
+      String input=
+        new Scanner(assets.open("testFiles/"+testFile))
+          .useDelimiter("\\Z")
+          .next();
+      Spanned fromInput=
+        new SpannableStringGenerator(tagRoster).fromXhtml(input);
+      String firstRoundTrip=
+        new SpannedXhtmlGenerator(tagRoster).toXhtml(fromInput);
 
-      assertEquivalent(String.format("Test %s round trip", testFile),
-                        input, firstRoundTrip);
+      assertEquivalent(
+        String.format("Test %s round trip", testFile),
+        input, firstRoundTrip);
       testsRun++;
     }
 

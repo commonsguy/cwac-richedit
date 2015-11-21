@@ -93,7 +93,7 @@ public class SpannedXhtmlGenerator {
       }
     }
 
-    return(result.toString());
+    return(result.toString().replace("</div><div></", "</"));
   }
 
   private void chunkToXhtml(SpannableStringBuilder result, Spanned src,
