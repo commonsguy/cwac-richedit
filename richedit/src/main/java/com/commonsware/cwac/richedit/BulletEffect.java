@@ -92,7 +92,21 @@ public class BulletEffect extends Effect<Boolean> {
 
       return(extendToBulletedList(chunk, src, spans.length));
     }
+    else {
+      if (spans.length>0) {
+        int start=src.getSpanStart(spans[0]);
 
-    return(initial);
+        for (BulletSpan span : spans) {
+          if (src.getSpanStart(span)<start)
+            start=src.getSpanStart(span);
+        }
+
+        if (initial.getStart()!=start) {
+          initial=new Selection(start, initial.getEnd());
+        }
+      }
+
+      return(initial);
+    }
   }
 }
