@@ -1,7 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.commonsware.cwac.richedit.RichEditText xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/editor"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:gravity="left|top"
-	android:imeOptions="flagNoExtractUi"/>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#22000000">
+
+        <ToggleButton
+            android:id="@+id/bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn="Bold on"
+            android:textOff="Bold off"/>
+
+        <ToggleButton
+            android:id="@+id/italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn="Italic on"
+            android:textOff="Italic off"/>
+
+        <ToggleButton
+            android:id="@+id/fontSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn="Font +50%"
+            android:textOff="Font normal"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#22000000"
+        android:paddingBottom="48dp">
+
+        <ToggleButton
+            android:id="@+id/alignment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn="Alignment opposite"
+            android:textOff="Alignment normal"/>
+
+        <ToggleButton
+            android:id="@+id/bullet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn="Bullet on"
+            android:textOff="Bullet off"/>
+    </LinearLayout>
+
+    <com.commonsware.cwac.richedit.RichEditText
+        android:id="@+id/editor"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="left|top"
+        android:imeOptions="flagNoExtractUi"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/htmlPreview"
+        android:text="HTML Preview"/>
+</LinearLayout>
