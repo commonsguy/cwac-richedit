@@ -103,7 +103,7 @@ tablets work better. To get it to work on phones at all, you will need
 to include `android:imeOptions="flagNoExtractUi"` as an attribute on the
 `RichEditText`.
 
-**NOTE**: The action modes do not work on Android 5.1. They will be
+**NOTE**: The action modes do not work on Android 5.1 and higher. They will be
 deprecated in an upcoming release of this library and will be removed
 entirely before the library reaches 1.0. A stock toolbar implementation
 will be provided instead as the out-of-the-box way to offer users the
