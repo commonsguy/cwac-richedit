@@ -142,8 +142,9 @@ class XhtmlSaxHandler extends DefaultHandler {
       int start=content.length();
 
       content.append(item.content);
-      content.setSpan(item.activeSpan, start, content.length(),
-          Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      if (item.activeSpan != null)
+        content.setSpan(item.activeSpan, start, content.length(),
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
     Spannable getContent() {
