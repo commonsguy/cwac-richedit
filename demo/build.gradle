@@ -13,6 +13,6 @@ repositories {
 
 dependencies {
     debugCompile project(':richedit')
-    releaseCompile 'com.commonsware.cwac:richedit:0.5.+'
+    releaseCompile 'com.commonsware.cwac:richedit:0.5.3'
     compile 'com.commonsware.cwac:colormixer:0.6.+'
 }
