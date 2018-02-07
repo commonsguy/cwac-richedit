@@ -1,6 +1,8 @@
 CWAC RichEditText: Letting Users Make Text Pretty
 =================================================
 
+**UPDATE: This project is discontinued, pending some possible future from-scratch rewrite.**
+
 Android's `EditText` widget supports formatted (a.k.a.,
 "rich text") editing. It just lacks any way for the user
 to supply formatting, and it does not provide much in the
@@ -42,7 +44,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.commonsware.cwac:richedit:0.5.+'
+    compile 'com.commonsware.cwac:richedit:0.5.3'
 }
 ```
 
@@ -301,8 +303,8 @@ that do not work on API Level 11 and are not noted as requiring a higher version
 
 Version
 -------
-This is version v0.5.1 of this module, meaning it is creeping towards
-respectability.
+This is version v0.5.3 of this module, the last version that is expected to
+be released, as this project is discontinued.
 
 Demo
 ----
@@ -322,32 +324,11 @@ file.
 
 Questions
 ---------
-If you have questions regarding the use of this code, please post a question
-on [StackOverflow](http://stackoverflow.com/questions/ask) tagged with `commonsware-cwac`
-and `android` after [searching to see if there already is an answer](https://stackoverflow.com/search?q=[android]+richedittext).
-Be sure to indicate
-what CWAC module you are having issues with, and be sure to include source code 
-and stack traces if you are encountering crashes.
-
-If you have encountered what is clearly a bug, or if you have a feature request,
-please post an [issue](https://github.com/commonsguy/cwac-richedit/issues).
-Be certain to include complete steps for reproducing the issue.
-The [contribution guidelines](CONTRIBUTING.md)
-provide some suggestions for how to create a bug report that will get
-the problem fixed the fastest.
-
-Do not ask for help via Twitter.
-
-Also, if you plan on hacking
-on the code with an eye for contributing something back,
-please open an issue that we can use for discussing
-implementation details. Just lobbing a pull request over
-the fence may work, but it may not.
-Again, the [contribution guidelines](CONTRIBUTING.md) provide a bit
-of guidance here.
+This project is discontinued.
 
 Release Notes
 -------------
+- v0.5.3: applied supplied fix for [issue 33](https://github.com/commonsguy/cwac-richedit/issues/33)
 - v0.5.2: bug fixes
 - v0.5.1: fixed [issue 15](https://github.com/commonsguy/cwac-richedit/issues/15) and [issue 17](https://github.com/commonsguy/cwac-richedit/issues/17)
 - v0.5.0: added preliminary support for bullets, added XHTML conversion classes
@@ -363,5 +344,5 @@ Release Notes
 
 Who Made This?
 --------------
-<a href="http://commonsware.com">![CommonsWare](http://commonsware.com/images/logo.png)</a>
+<a href="https://commonsware.com">![CommonsWare](http://commonsware.com/images/logo.png)</a>
 
