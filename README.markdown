@@ -1,7 +1,7 @@
 CWAC RichEditText: Letting Users Make Text Pretty
 =================================================
 
-**UPDATE: This project is discontinued, pending some possible future from-scratch rewrite.**
+**UPDATE: This project is discontinued. This repo will be taken private on or after 12/1/2021**
 
 Android's `EditText` widget supports formatted (a.k.a.,
 "rich text") editing. It just lacks any way for the user
