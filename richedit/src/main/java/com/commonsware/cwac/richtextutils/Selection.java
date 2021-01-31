@@ -63,9 +63,12 @@ public class Selection {
       }
     }
 
-    for (newEnd=end;newEnd<src.length()-1;newEnd++) {
-      if (src.charAt(newEnd+1)=='\n') {
-        break;
+    newEnd = end;
+    if (newEnd < src.length() && src.charAt(newEnd) != '\n') {
+      for (; newEnd < src.length() - 1; newEnd++) {
+        if (src.charAt(newEnd + 1) == '\n') {
+          break;
+        }
       }
     }
 

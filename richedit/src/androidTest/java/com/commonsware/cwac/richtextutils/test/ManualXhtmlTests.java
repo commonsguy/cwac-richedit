@@ -42,6 +42,22 @@ public class ManualXhtmlTests extends TestCase {
     }
   }
 
+    public void testBr() throws Exception {
+        final String input="a<br/>b<br/>c";
+        SpanTagRoster tagRoster=new SpanTagRoster();
+        Spanned fromInput=new SpannableStringGenerator(tagRoster).fromXhtml(input);
+        String roundTrip=new SpannedXhtmlGenerator(tagRoster).toXhtml(fromInput);
+        assertEquals(input, roundTrip);
+    }
+
+    public void testDiv() throws Exception {
+        final String input="<div>a</div><div></div><br/>";
+        SpanTagRoster tagRoster=new SpanTagRoster();
+        Spanned fromInput=new SpannableStringGenerator(tagRoster).fromXhtml(input);
+        String roundTrip=new SpannedXhtmlGenerator(tagRoster).toXhtml(fromInput);
+        assertEquals(input, roundTrip);
+    }
+
   public void testClassSpanTagHandler() throws IOException, SAXException, ParserConfigurationException {
     SpanTagRoster tagRoster=new SpanTagRoster();
 
