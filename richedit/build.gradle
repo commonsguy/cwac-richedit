@@ -18,6 +18,11 @@ android {
     packagingOptions {
         exclude 'LICENSE.txt' // required for no good reason...
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 }
 
 dependencies {
